@@ -30,6 +30,7 @@ body{
     width:50%;
     height:100%;
     float:left;
+    margin-top:20px;
 }
 #logo img{
     width:120px;
@@ -48,6 +49,7 @@ body{
     width:100%;
     heifht:100%;
     float:left;
+    margin-top:20px;
     margin-left:30%;
 }
 #head_menu li{
