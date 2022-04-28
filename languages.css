@@ -64,3 +64,35 @@ body{
     width:42px;
     height:42px;
 }
+
+#main{
+    width:100%;
+    height:800px;
+    position:relative;
+}
+
+#title{
+    width:100%;
+    height:80px;
+    float:left;
+    font-size:20pt;
+    font-weight:bold;
+    text-align:center;
+}
+
+#contents{
+    height:720px;
+    float:left;
+    left:50%;
+    position:relative;
+    transform:translateX(-50%);
+}
+
+#contents tr td{
+    width:350px;
+    height:197px;
+    float:left;
+    margin-left:33px;
+    border-radius:10px;
+    background-color:#c4c4c4
+}
