@@ -24,7 +24,7 @@ body{
     height:90px;
     float:left;
     margin-top:25px;
-    margin-left:60%;
+    margin-left:40%;
 }
 
 #user{
@@ -38,7 +38,7 @@ body{
     heifht:100%;
     float:left;
     margin-top:20px;
-    margin-left:30%;
+    margin-left:45%;
 }
 
 #head_menu li{
@@ -91,7 +91,7 @@ body{
 }
 
 tr{
-    width:198px;
+    width:500px;
     height:100px;
     position: relative;
 }
@@ -103,7 +103,7 @@ td{
 }
 
 .badge{
-    width:198px;
+    width:160px;
     height:80px;
     float:left;
     margin-left:16px;
