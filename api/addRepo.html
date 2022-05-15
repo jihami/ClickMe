@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--레포생성-->
+<script src="../ClickMeToken.js"></script>
+<script src="userName.js"></script>
+<script>
+    const token = toKen
+    const username = userName
+    fetch("https://api.github.com/repos/"+username+"/Hello-Worl", {
+        method: "POST",
+        headers: {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization" : "token "+token,
+        },
+        body: JSON.stringify({
+            name: username,
+            description: 'README REPO',
+            private: false,
+        }),
+    }).then((response) => console.log(response));
+</script>
+</body>
+</html>
