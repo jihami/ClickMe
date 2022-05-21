@@ -4,6 +4,27 @@
   <meta charset="UTF-8">
   <title>MAIN_PAGE</title>
   <link rel="stylesheet" href="main.css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+  <script>
+    const firebaseConfig = {
+    //  firebase sdk
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const firebaseInstance = firebase;
+    const authService = firebase.auth();
+
+    const githubLogin = async (event) => {
+      const provider = new firebaseInstance.auth.GithubAuthProvider();
+
+      const data = await authService.signInWithPopup(provider);
+      console.log(data);
+    }
+  </script>
 </head>
 <body>
 <div id="background">
@@ -14,8 +35,8 @@
 
     <div id="user">
       <ul id="head_menu">
-        <li id="login">Login</li>
-        <li id="logout">Logout</li>
+        <a href="#"><li id="login" onclick="githubLogin()">Login</li></a>
+        <a href="#"><li id="logout">Logout</li></a>
       </ul>
     </div>
   </div>
