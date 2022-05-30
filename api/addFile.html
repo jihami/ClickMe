@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--파일 추가-->
+<script src="../ClickMeToken.js"></script>
+<script src="userName.js"></script>
+<script>
+    const token = toKen
+    const username = userName
+    const fileName = "h.md"
+    const commitMessage = "add"
+    const content = "bXkgbmV3IGZpbGUgY29udGVudHM="
+    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+        method: "PUT",
+        headers: {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization" : "token "+token,
+        },
+        body: JSON.stringify({
+            message : commitMessage,
+            owner : username,
+            content : content , //base 64
+            sha:"" //비워둠
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+</script>
+</body>
+</html>
