@@ -4,6 +4,11 @@
     color:#333;
 }
 
+a{
+    text-decoration:none;
+    display:block;
+}
+
 body{
     overflow-x:hidden;
 }
@@ -37,7 +42,7 @@ body{
             height:90px;
             float:left;
             margin-top:25px;
-            margin-left:60%;
+            margin-left:55%;
         }
 
     #user{
