@@ -31,12 +31,25 @@
       const data = await authService.signInWithPopup(provider);
 
       document.getElementById('login').value = '00님'
+      console.log(data)
+      const username = data.additionalUserInfo.username
+      console.log(username)
+      const email = data.user.email
+      console.log(email)
+      const displayName = data.user.displayName
+      console.log(displayName)
+      document.getElementById('login').innerHTML = username+"님"
     }
 
-    // const logOutClick = () => {
-    //   authService.signOut()
-    //   history.push('/');
-    // };
+    function githubLogOut() {
+      firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        document.getElementById("login").innerHTML = "Git Hub Login"
+      }).catch((error) => {
+        // An error happened.
+        console.log("logoutError")
+      });
+    }
   </script>
 </head>
 <body>
@@ -50,8 +63,8 @@
 
     <div id="user">
       <ul id="head_menu">
-        <a href="#"><li id="login" onclick="githubLogin()">Login</li></a>
-        <a href="#"><li id="logout">Logout</li></a>
+        <a href="#"><li id="login" onclick="githubLogin()">Git Hub Login</li></a>
+        <a href="#"><li id="logout" onclick="githubLogOut()">Logout</li></a>
       </ul>
     </div>
   </div>
