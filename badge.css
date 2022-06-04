@@ -168,7 +168,11 @@ body{
                     margin-right:16px;
                     border-radius:50px;
                     background-color:#eff0f2;
+                    text-align: center;
                     background-position:center center;
+                    /*가운데 정렬*/
+                    display: flex;
+                    align-items: center;
                 }
 
                 .badge_title{
