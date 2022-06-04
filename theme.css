@@ -25,11 +25,12 @@ body{
         margin-top:20px;
     }
         #logo img{
-            width:120px;
+            width:100px;
             height:90px;
             float:left;
             margin-top:25px;
             margin-left:40%;
+            cursor:pointer;
         }
 
     #user{
@@ -114,7 +115,7 @@ body{
                 width:480px;
                 height:150px;
                 border-radius:10px 10px 0 0;
-                background-color:#c4c4c4;
+                background-size:cover;
             }
 
             .theme_title{
