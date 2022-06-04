@@ -13,11 +13,13 @@ body{
     height:450px;
     top:32%;
     left:50%;
+    display:none;
     border-radius:20px;
     box-shadow: 1px 1px 10px 1px grey;
     transform:translateX(-50%);
     position:fixed;
-    display:none;
+    background-color:white;
+    z-index:1;
 }
 
     #close{
@@ -124,7 +126,7 @@ body{
 
 #main{
     width:100%;
-    height:800px;
+    height:3000px;
     position:relative;
 }
 
@@ -138,7 +140,7 @@ body{
     }
 
     #contents{
-        height:600px;
+        height:100%;
         float:left;
         top:-40px;
         left:50%;
@@ -165,7 +167,8 @@ body{
                     margin-left:16px;
                     margin-right:16px;
                     border-radius:50px;
-                    background-color:#eff0f2
+                    background-color:#eff0f2;
+                    background-position:center center;
                 }
 
                 .badge_title{
