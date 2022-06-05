@@ -119,6 +119,12 @@ body{
                 background-size:cover;
             }
 
+                .theme img{
+                    width:480px;
+                    height:150px;
+                    float:left;
+                }
+
             .theme_title{
                 width:480px;
                 height:50px;
