@@ -88,16 +88,6 @@ body{
         text-align:center;
     }
 
-    #arrow{
-        width:15px;
-        height:24px;
-        float:left;
-        margin-top:30px;
-        margin-left:5%;
-        position:absolute;
-        z-index:-1;
-    }
-
     #contents{
         height:600px;
         float:left;

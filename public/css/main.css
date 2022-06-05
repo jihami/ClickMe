@@ -98,25 +98,3 @@ body{
     position:relative;
     background-color:#EFF0F2;
 }
-    #footer_menu ul{
-        float:left;
-        top:80px;
-        left:50%;
-        position:relative;
-        transform:translateX(-50%);
-    }
-        #footer_menu ul li{
-            width:94px;
-            height:94px;
-            margin-left:65px;
-            float:left;
-            list-style:none;
-        }
-
-        .circle{
-            width:90px;
-            height:90px;
-            float:left;
-            border-radius:100%;
-            background-color:#24292F;
-        }

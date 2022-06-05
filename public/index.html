@@ -30,7 +30,6 @@
 
     const githubLogin = async () => {
       const provider = new firebaseInstance.auth.GithubAuthProvider();
-
       const data = await authService.signInWithPopup(provider);
 
       document.getElementById('login').value = '00님'
@@ -83,17 +82,7 @@
     </div>
   </div>
 
-  <div id="footer">
-    <div id="footer_menu">
-      <ul>
-        <li><div class="circle"></div></li>
-        <li><div class="circle"></div></li>
-        <li><div class="circle"></div></li>
-        <li><div class="circle"></div></li>
-        <li><div class="circle"></div></li>
-      </ul>
-    </div>
-  </div>
+  <div id="footer"></div>
 </div>
 </body>
 </html>
