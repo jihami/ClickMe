@@ -69,34 +69,40 @@ body{
 
 #main{
     width:100%;
-    height:5400px;
+    height:8100px;
     position:relative;
 }
 
-#title{
-    width:100%;
-    height:80px;
-    float:left;
-    font-size:20pt;
-    font-weight:bold;
-    text-align:center;
-}
+    #title{
+        width:100%;
+        height:80px;
+        float:left;
+        font-size:20pt;
+        font-weight:bold;
+        text-align:center;
+    }
 
-#contents{
-    height:5300px;
-    float:left;
-    top:-20px;
-    left:49%;
-    position:relative;
-    transform:translateX(-50%);
-}
+    #contents{
+        height:8020px;
+        float:left;
+        top:-20px;
+        left:49%;
+        position:relative;
+        transform:translateX(-50%);
+    }
 
-#contents tr td{
-    width:400px;
-    height:120px;
-    float:left;
-    margin-left:30px;
-    margin-bottom:48px;
-    border-radius:10px;
-    background-size:cover;
-}
+        #contents tr td{
+            width:536px;
+            height:215px;
+            float:left;
+            margin-left:30px;
+            margin-bottom:48px;
+            border-radius:10px;
+            background-size:cover;
+        }
+
+            #contents tr td img{
+                width:536px;
+                height:215px;
+                float:left;
+            }
