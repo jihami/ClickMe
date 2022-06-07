@@ -8,12 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/badge.css">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="module" src="js/badgeData.js"></script>
-    <script type="module" src="js/badge.js"></script>
+    <script src="js/badge.js"></script>
 </head>
-<script>
-    console.log(badge)
-</script>
 <body>
     <div id="popup">
         <button type="button" id="close">
@@ -21,39 +17,12 @@
         </button>
 
         <div id="popup_contents">
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                </tr>-->
-
-<!--                <tr>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                </tr>-->
-
-<!--                <tr>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                    <td class="dot"></td>-->
-<!--                </tr>-->
-<!--            </table>-->
-            <div id="badgeText"></div>
             <div id="badgeExample"></div>
+            <label><textarea id="badgeText" maxlength="500" disabled></textarea></label>
+            <button type="button" id="submit">전송</button>
+            <button type="button" id="cancel">취소</button>
         </div>
 
-        <button type="button" id="cancel">취소</button>
     </div>
 
     <div id="head">
@@ -112,7 +81,7 @@
                     <p class="badge_title">Anaconda</p>
                 </td>
                 <td>
-                    <div class="badge" id="android"><img src="https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white" alt="BADGE"/></div>
+                    <div class="badge" id="Android"><img src="https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white" alt="BADGE"/></div>
                     <p class="badge_title">Android</p>
                 </td>
                 <td>
@@ -123,7 +92,7 @@
 
             <tr>
                 <td>
-                    <div class="badge" id="angular"><img src="https://img.shields.io/badge/angular.js-DD0031?style=flat-square&logo=angularjs&logoColor=white" alt="BADGE"/></div>
+                    <div class="badge" id="AngularJS"><img src="https://img.shields.io/badge/angular.js-DD0031?style=flat-square&logo=angularjs&logoColor=white" alt="BADGE"/></div>
                     <p class="badge_title">AngularJS</p>
                 </td>
                 <td>
@@ -135,7 +104,7 @@
                     <p class="badge_title">Atom</p>
                 </td>
                 <td>
-                    <div class="badge" id="Bootstrapap"><img src="https://img.shields.io/badge/Bootstrapap-7952B3?style=flat-square&logo=bootstrap&logoColor=white" alt="BADGE"/></div>
+                    <div class="badge" id="Bootstrap"><img src="https://img.shields.io/badge/Bootstrapap-7952B3?style=flat-square&logo=bootstrap&logoColor=white" alt="BADGE"/></div>
                     <p class="badge_title">Bootstrap</p>
                 </td>
                 <td>
@@ -223,7 +192,7 @@
                     <p class="badge_title">HTML5</p>
                 </td>
                 <td>
-                    <div class="badge" id="java"><img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white" alt="BADGE"/></div>
+                    <div class="badge" id="Java"><img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white" alt="BADGE"/></div>
                     <p class="badge_title">Java</p>
                 </td>
                 <td>
@@ -347,7 +316,7 @@
                     <p class="badge_title">Storybook</p>
                 </td>
                 <td>
-                    <div class="badge" id="styled components"><img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white" alt="BADGE"/></div>
+                    <div class="badge" id="styled-components"><img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white" alt="BADGE"/></div>
                     <p class="badge_title">styled-components</p>
                 </td>
             </tr>
@@ -381,7 +350,7 @@
                     <p class="badge_title">Visual Studio</p>
                 </td>
                 <td>
-                    <div class="badge" id="isual Studio Code"><img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white" alt="BADGE"/></div>
+                    <div class="badge" id="Visual Studio Code"><img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white" alt="BADGE"/></div>
                     <p class="badge_title">Visual Studio Code</p>
                 </td>
                 <td>
