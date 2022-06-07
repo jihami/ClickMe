@@ -104,14 +104,15 @@ function submit(gitToken){
     getdata = fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
         .then((response) => response.json())
         .then((data) =>{
-            var deContent = decodeURIComponent(atob(data.content)); // 디코딩 base64
-            console.log(deContent);
-            console.log(data.content);
-            console.log(data);
+            // var deContent = decodeURIComponent(atob(data.content)); // 디코딩 base64
+            // console.log(deContent);
+            // console.log(data.content);
+            // console.log(data);
+            console.log("get");
             return data;
         });
 
-    console.log(getdata);
+    // console.log(getdata);
 // del README
     getdata.then( (data) => {
         const commitMessage = "delFile"
@@ -127,6 +128,7 @@ function submit(gitToken){
                 sha:sha
             }),
         });
+        console.log("del");
     });
 // Add file
     getdata.then( (data) => {
@@ -146,7 +148,11 @@ function submit(gitToken){
                 sha:"" //비워둠
             }),
         });
-        // location.reload();
+        console.log("add");
     });
+}
 
+function goGit(){
+    const username = "Kimclick"
+    window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
 }
