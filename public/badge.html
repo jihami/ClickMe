@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/badge.css">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="js/badge.js"></script>
+    <script src="api/ClickMeToken.js"></script>
 </head>
 <body>
     <div id="popup">
@@ -19,7 +20,7 @@
         <div id="popup_contents">
             <div id="badgeExample"></div>
             <label><textarea id="badgeText" maxlength="500" disabled></textarea></label>
-            <button type="button" id="submit">전송</button>
+            <button type="button" id="submit" onclick="submit(toKen)">전송</button>
             <button type="button" id="cancel">취소</button>
         </div>
 

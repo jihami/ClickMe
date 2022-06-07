@@ -73,10 +73,10 @@ const badgeData = {
     'WebStorm' : '<img src="https://img.shields.io/badge/WebStorm-000000?style=flat-square&logo=WebStorm&logoColor=white" alt="BADGE"/>'
 }
 $(function(){
-    $('.badge').on('click', function(){
+    api = $('.badge').on('click', function(){
         $('#popup').show()
         var badgeId = this.id
-        console.log(badgeData[badgeId]);
+        // console.log(badgeData[badgeId]);
         var api = badgeData[badgeId]
         document.getElementById('badgeText').innerHTML = api;
         document.getElementById('badgeExample').innerHTML = api;
@@ -91,3 +91,62 @@ $(function(){
         $('#popup').hide()
     })
 })
+function submit(gitToken){
+    // textarea 에 있는 코드 가져오기
+    var api = document.getElementById('badgeText');
+    // console.log(api.textContent);
+    var context = api.textContent;
+    // console.log(context);
+    const token = gitToken
+    const username = "Kimclick" // 로그인 구현후 변경
+    const fileName = "README.md"
+    //get sha, content
+    getdata = fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
+        .then((response) => response.json())
+        .then((data) =>{
+            var deContent = decodeURIComponent(atob(data.content)); // 디코딩 base64
+            console.log(deContent);
+            console.log(data.content);
+            console.log(data);
+            return data;
+        });
+
+    console.log(getdata);
+// del README
+    getdata.then( (data) => {
+        const commitMessage = "delFile"
+        var sha = data.sha
+        // console.log(sha)
+        fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
+            method: "DELETE",
+            headers: {
+                "Authorization" : "token "+token,
+            },
+            body: JSON.stringify({
+                message:commitMessage,
+                sha:sha
+            }),
+        });
+    });
+// Add file
+    getdata.then( (data) => {
+        const commitMessage = "AddREADME.md"
+        var content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
+        // console.log(content)
+        fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+            method: "PUT",
+            headers: {
+                "Accept": "application/vnd.github.v3+json",
+                "Authorization" : "token "+toKen,
+            },
+            body: JSON.stringify({
+                message : commitMessage,
+                owner : username,
+                content : content , //base 64
+                sha:"" //비워둠
+            }),
+        });
+        // location.reload();
+    });
+
+}
