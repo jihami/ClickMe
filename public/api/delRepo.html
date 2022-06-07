@@ -4,29 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<!--레포 삭제 -->
 <body>
-<!--파일 삭제-->
 <script src="ClickMeToken.js"></script>
 <script src="userName.js"></script>
 <script>
     const token = toKen
     const username = userName
-    const fileName = "h.md"
-    const commitMessage = "delFile"
-    const sha = "0d5a690c8fad5e605a6e8766295d9d459d65de42"
-    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
+    const repoName = "Tes"
+    fetch("https://api.github.com/repos/"+username+"/"+repoName, {
         method: "DELETE",
         headers: {
             "Authorization" : "token "+token,
         },
-        body: JSON.stringify({
-            message:commitMessage,
-            sha:sha // sha 가져와서 붙이기
-        }),
     })
         .then((response) => response.json())
         .then((data) => console.log(data));
-</script>
 </script>
 </body>
 </html>

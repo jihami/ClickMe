@@ -6,14 +6,16 @@
 </head>
 <body>
 <!--파일 추가-->
-<script src="../ClickMeToken.js"></script>
+<script src="ClickMeToken.js"></script>
 <script src="userName.js"></script>
 <script>
     const token = toKen
     const username = userName
-    const fileName = "h.md"
-    const commitMessage = "add"
-    const content = "bXkgbmV3IGZpbGUgY29udGVudHM="
+    const fileName = "README.md"
+    const commitMessage = "addREADME"
+    const content = btoa(unescape(encodeURIComponent("안녕")));  //  base64로 인코
+    console.log(content)
+
     fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
         method: "PUT",
         headers: {
@@ -26,9 +28,9 @@
             content : content , //base 64
             sha:"" //비워둠
         }),
-    })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+    });
+
+
 </script>
 </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>got</title>
+    <script src="ClickMeToken.js"></script>
+</head>
+<body>
+<script>
+//get sha, content
+const token = toKen
+const username = "Kimclick"
+const fileName = "README.md"
+getdata = fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
+    .then((response) => response.json())
+    .then((data) =>{
+        return data;
+    });
+// console.log(getdata);
+// del README
+getdata.then( (data) => {
+    const commitMessage = "delFile"
+    const sha = data.sha
+    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
+        method: "DELETE",
+        headers: {
+            "Authorization" : "token "+token,
+        },
+        body: JSON.stringify({
+            message:commitMessage,
+            sha:sha
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+});
+// Add file
+getdata.then( (data) => {
+    const commitMessage = "AddFile"
+    const content = btoa(unescape(encodeURIComponent("안녕")))+data.content;  //  base64로 인코
+    console.log(content)
+    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+        method: "PUT",
+        headers: {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization" : "token "+toKen,
+        },
+        body: JSON.stringify({
+            message : commitMessage,
+            owner : username,
+            content : content , //base 64
+            sha:"" //비워둠
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+});
+
+</script>
+</body>
+</html>
