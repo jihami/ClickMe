@@ -10,10 +10,10 @@
 <script src="userName.js"></script>
 <script>
     const token = toKen
-    const username = userName
-    const fileName = "h.md"
+    const username = Kimclick
+    const fileName = "README.md"
     const commitMessage = "delFile"
-    const sha = "0d5a690c8fad5e605a6e8766295d9d459d65de42"
+    const sha = "d4f6232b826b4d73b9a4a31c95a2321d2c442f13"
     fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
         method: "DELETE",
         headers: {
@@ -26,7 +26,6 @@
     })
         .then((response) => response.json())
         .then((data) => console.log(data));
-</script>
 </script>
 </body>
 </html>
