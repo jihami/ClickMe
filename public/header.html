@@ -7,8 +7,49 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/header.css">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="js/header.js"></script>
 </head>
 <body>
+    <div id="popup">
+        <button type="button" id="close">
+            <a href="#"><img src="img/close.PNG" alt="close"></a>
+        </button>
+
+        <div id="popup_contents">
+            <table>
+                <tr>
+                    <td class="dot" style="background-color:red;"></td>
+                    <td class="dot" style="background-color:orange;"></td>
+                    <td class="dot" style="background-color:yellow;"></td>
+                    <td class="dot" style="background-color:green;"></td>
+                    <td class="dot" style="background-color:blue;"></td>
+                    <td class="dot" style="background-color:purple;"></td>
+                </tr>
+
+                <tr>
+                    <td class="dot" style="background-color:#8f4747;"></td>
+                    <td class="dot" style="background-color:#8d7345;"></td>
+                    <td class="dot" style="background-color:#919148;"></td>
+                    <td class="dot" style="background-color:#479347;"></td>
+                    <td class="dot" style="background-color:#484891;"></td>
+                    <td class="dot" style="background-color:#884488;"></td>
+                </tr>
+
+                <tr>
+                    <td class="dot" style="background-color:#ff8080;"></td>
+                    <td class="dot" style="background-color:#ffd580;"></td>
+                    <td class="dot" style="background-color:#ffff82;"></td>
+                    <td class="dot" style="background-color:#81ff81;"></td>
+                    <td class="dot" style="background-color:#8282ff;"></td>
+                    <td class="dot" style="background-color:#ff7eff;"></td>
+                </tr>
+            </table>
+        </div>
+
+        <button type="button" id="cancel">취소</button>
+    </div>
+
     <div id="head">
         <div id="logo" onclick="location.href='index.html'">
             <img src="img/logo_color.png">

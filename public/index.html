@@ -13,6 +13,9 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script>
+    let user_id
+    let name
+
     const firebaseConfig = {
       //  firebase sdk
       apiKey: "AIzaSyAScwaKmiKUyqgxaPBk2VUrydYSHUJF3pY",
@@ -43,7 +46,11 @@
       const displayName = data.user.displayName
       console.log(displayName)
       document.getElementById('login').innerHTML = username+"님"
-      console.log(data.user.uid)
+
+      user_id = data.user.uid
+      name = data.user.displayName
+
+      console.log(user_id, name)
 
       $(function(){
         $('#logout').show();
@@ -63,6 +70,12 @@
         $('#logout').hide();
       })
     }
+
+    $(function(){
+      $("#main_title").click(function() {
+        $('html,body').animate({scrollTop:800}, 500);
+      })
+    })
   </script>
 </head>
 <body>
@@ -83,14 +96,12 @@
     </div>
 
     <div id="main">
-      <a href="#menu" onclick="click_title()">
-        <p id="main_title">ClickMe</p>
-      </a>
+      <p id="main_title">ClickMe</p>
 
       <div id="menu">
         <ul>
           <li id="lang">
-            <a href="languages.html">
+            <a href="./languages.html" methods="post">
               LANG
               <img class="lang" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Kimclick&layout=compact" alt="LANGUAGES"/>
             </a>
