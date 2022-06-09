@@ -20,37 +20,28 @@
         </button>
 
         <div id="popup_contents">
-            <table>
-                <tr>
-                    <td class="dot" style="background-color:red;"></td>
-                    <td class="dot" style="background-color:orange;"></td>
-                    <td class="dot" style="background-color:yellow;"></td>
-                    <td class="dot" style="background-color:green;"></td>
-                    <td class="dot" style="background-color:blue;"></td>
-                    <td class="dot" style="background-color:purple;"></td>
-                </tr>
-
-                <tr>
-                    <td class="dot" style="background-color:#8f4747;"></td>
-                    <td class="dot" style="background-color:#8d7345;"></td>
-                    <td class="dot" style="background-color:#919148;"></td>
-                    <td class="dot" style="background-color:#479347;"></td>
-                    <td class="dot" style="background-color:#484891;"></td>
-                    <td class="dot" style="background-color:#884488;"></td>
-                </tr>
-
-                <tr>
-                    <td class="dot" style="background-color:#ff8080;"></td>
-                    <td class="dot" style="background-color:#ffd580;"></td>
-                    <td class="dot" style="background-color:#ffff82;"></td>
-                    <td class="dot" style="background-color:#81ff81;"></td>
-                    <td class="dot" style="background-color:#8282ff;"></td>
-                    <td class="dot" style="background-color:#ff7eff;"></td>
-                </tr>
-            </table>
+            <div id="headerColor">
+                <table>
+                    <tr>
+                        <td class="dot" id="pRandom" style="background-color:red;">Proven random colo</td>
+                        <td class="dotSpace"></td>
+                        <td class="dot" id="rRandom" style="background-color:orange;">Really random color</td>
+                        <td class="dotSpace"></td>
+                        <td class="dot" id="pRGadient" style="background-color:yellow;">Proven random gradient</td>
+                        <td class="dotSpace"></td>
+                        <td class="dot" id="hexcode" style="background-color:#b897ff;">hexcode default (#B897FF)</td>
+                        <td class="dotSpace"></td>
+                        <td class="dot" id="clickMe" style="background-color:#713fe8;">ClickMe color</td>
+                    </tr>
+                </table>
+            </div>
+            <label><textarea id="headerText" maxlength="500"></textarea></label>
+            <br/>
+            <button type="button" id="submit" onclick="submit(toKen)">전송</button>
+            <button type="button" id="cancel">취소</button>
+            <div id="goGit" onclick="goGit()">내 git 페이지 가기</div>
+            <div id="alert" style="color: red">오류 시 잠시 후 다시 시도해주세요.</div>
         </div>
-
-        <button type="button" id="cancel">취소</button>
     </div>
 
     <div id="head">
