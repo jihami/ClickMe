@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>add</title>
 </head>
 <body>
 <!--파일 추가-->
@@ -16,7 +16,8 @@
     const content = btoa(unescape(encodeURIComponent("안녕")));  //  base64로 인코
     console.log(content)
 
-    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+    // fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+    fetch("https://api.github.com/repos/Kimclick/Kimclick/contents/README.md", { //경로 -> 파일명
         method: "PUT",
         headers: {
             "Accept": "application/vnd.github.v3+json",

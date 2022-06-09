@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>del</title>
 </head>
 <body>
 <!--파일 삭제-->
@@ -10,11 +10,12 @@
 <script src="userName.js"></script>
 <script>
     const token = toKen
-    const username = Kimclick
+    const username = userName
     const fileName = "README.md"
     const commitMessage = "delFile"
-    const sha = "d4f6232b826b4d73b9a4a31c95a2321d2c442f13"
-    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
+    const sha = "d962ec3b334cce6fd058b051854ad45dd7bff101"
+    // fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
+    fetch("https://api.github.com/repos/Kimclick/Kimclick/contents/README.md", { //경로 -> 파일명
         method: "DELETE",
         headers: {
             "Authorization" : "token "+token,
@@ -23,9 +24,9 @@
             message:commitMessage,
             sha:sha // sha 가져와서 붙이기
         }),
-    })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+    });
+        // .then((response) => response.json())
+        // .then((data) => console.log(data));
 </script>
 </body>
 </html>

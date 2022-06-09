@@ -81,8 +81,8 @@ $(function(){
         document.getElementById('badgeText').innerHTML = api;
         document.getElementById('badgeExample').innerHTML = api;
         // document.getElementById('badgeText').innerHTML = "<xmp>"+api+"<xmp>";
+        return api
     })
-
     $('#close').on('click', function(){
         $('#popup').hide()
     })
@@ -101,57 +101,48 @@ function submit(gitToken){
     const username = "Kimclick" // 로그인 구현후 변경
     const fileName = "README.md"
     //get sha, content
-    getdata = fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
+   fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
         .then((response) => response.json())
         .then((data) =>{
-            // var deContent = decodeURIComponent(atob(data.content)); // 디코딩 base64
-            // console.log(deContent);
-            // console.log(data.content);
-            // console.log(data);
             console.log("get");
-            return data;
+            var commitMessage = "delFile"
+            var sha = data.sha
+            console.log(sha)
+            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
+                method: "DELETE",
+                headers: {
+                    "Authorization" : "token "+token,
+                },
+                body: JSON.stringify({
+                    message:commitMessage,
+                    sha:sha
+                }),
+            });
+            console.log("del");
+            console.log(sha);
+            // add
+            commitMessage = "AddREADME.md"
+            var content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
+            // var content = data.content+context;  //  base64로 인코
+            // console.log(content)
+            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+                method: "PUT",
+                headers: {
+                    "Accept": "application/vnd.github.v3+json",
+                    "Authorization" : "token "+toKen,
+                },
+                body: JSON.stringify({
+                    message : commitMessage,
+                    owner : username,
+                    content : content , //base 64
+                    sha:"" //비워둠
+                }),
+            });
+            console.log("add");
         });
 
-    // console.log(getdata);
-// del README
-    getdata.then( (data) => {
-        const commitMessage = "delFile"
-        var sha = data.sha
-        // console.log(sha)
-        fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
-            method: "DELETE",
-            headers: {
-                "Authorization" : "token "+token,
-            },
-            body: JSON.stringify({
-                message:commitMessage,
-                sha:sha
-            }),
-        });
-        console.log("del");
-    });
-// Add file
-    getdata.then( (data) => {
-        const commitMessage = "AddREADME.md"
-        var content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
-        // console.log(content)
-        fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
-            method: "PUT",
-            headers: {
-                "Accept": "application/vnd.github.v3+json",
-                "Authorization" : "token "+toKen,
-            },
-            body: JSON.stringify({
-                message : commitMessage,
-                owner : username,
-                content : content , //base 64
-                sha:"" //비워둠
-            }),
-        });
-        console.log("add");
-    });
+    // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
 }
-
 function goGit(){
     const username = "Kimclick"
     window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
