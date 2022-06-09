@@ -7,11 +7,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/languages.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="js/languages.js"></script>
     <script>
         const username = sessionStorage.getItem("name")
     </script>
 </head>
 <body>
+    <div id="popup">
+        <button type="button" id="close">
+            <a href="#"><img src="img/close.PNG" alt="close"></a>
+        </button>
+
+        <div id="popup_contents">
+            <div id="badgeExample"></div>
+            <label><textarea id="badgeText" maxlength="500" disabled></textarea></label>
+            <button type="button" id="submit" onclick="submit(toKen)">전송</button>
+            <button type="button" id="cancel">취소</button>
+            <div id="goGit" onclick="goGit()">내 git 페이지 가기</div>
+            <div id="alert" style="color: red">오류 시 잠시 후 다시 시도해주세요.</div>
+        </div>
+    </div>
+
     <div id="head">
         <div id="logo" onclick="location.href='index.html'">
             <img src="img/logo_color.png" alt="logo">
