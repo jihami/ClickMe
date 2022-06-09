@@ -81,22 +81,28 @@ body{
         float:left;
     }
         #menu ul{
-            height:100px;
+            height:150px;
             float:left;
-            top:150px;
+            top:100px;
             left:50%;
             position:relative;
             transform:translateX(-50%);
         }
             #menu ul li{
-                width:140px;
-                height:80px;
+                width:200px;
+                height:150px;
                 float:left;
                 color:#6E6F73;
-                font-size:12pt;
+                font-size:15pt;
                 text-align:center;
-                line-height:80px;
+                line-height:50px;
                 list-style:none;
+            }
+
+            #menu ul li img{
+                width:140px;
+                float:left;
+                margin-left:30px;
             }
 
             #menu ul li:hover{
@@ -109,3 +115,4 @@ body{
     position:relative;
     background-color:#EFF0F2;
 }
+

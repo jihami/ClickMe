@@ -11,6 +11,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script>
     const firebaseConfig = {
       //  firebase sdk
@@ -42,6 +43,11 @@
       const displayName = data.user.displayName
       console.log(displayName)
       document.getElementById('login').innerHTML = username+"님"
+      console.log(data.user.uid)
+
+      $(function(){
+        $('#logout').show();
+      })
     }
 
     function githubLogOut() {
@@ -52,6 +58,10 @@
         // An error happened.
         console.log("logoutError")
       });
+
+      $(function(){
+        $('#logout').hide();
+      })
     }
   </script>
 </head>
@@ -67,25 +77,49 @@
       <div id="user">
         <ul id="head_menu">
           <a href="#"><li id="login" onclick="githubLogin()">Git Hub Login</li></a>
-          <a><li id="logout" onclick="githubLogOut()" style="display:none;">Logout</li></a>
+          <a href="#"><li id="logout" onclick="githubLogOut()" style="display:none;">Logout</li></a>
         </ul>
       </div>
     </div>
 
     <div id="main">
-      <p id="main_title">ClickMe</p>
+      <a href="#menu" onclick="click_title()">
+        <p id="main_title">ClickMe</p>
+      </a>
 
       <div id="menu">
         <ul>
-          <li id="lang"><a href="languages.html">LANG</a></li>
-          <li id="stayus"><a href="stats.html">STAYUS</a></li>
-          <li id="header"><a href="header.html">HEADER</a></li>
-          <li id="badge"><a href="badge.html">BADGE</a></li>
+          <li id="lang">
+            <a href="languages.html">
+              LANG
+              <img class="lang" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Kimclick&layout=compact" alt="LANGUAGES"/>
+            </a>
+          </li>
+          <li id="stayus">
+            <a href="stats.html">
+              STAYUS
+              <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true" alt="STATS"/>
+            </a>
+          </li>
+          <li id="header">
+            <a href="header.html">
+              HEADER
+              <img src="https://capsule-render.vercel.app/api?type=wave&color=713fe8&height=200&text=WAVE">
+            </a>
+          </li>
+          <li id="badge">
+            <a href="badge.html">
+              BADGE
+              <div class="badge" id="Adobe"><img src="https://img.shields.io/badge/Badge-4A2781?style=flat-square&logo=bootstrap&logoColor=white" alt="BADGE"/></div>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
-    <div id="footer"></div>
+    <div id="footer">
+
+    </div>
   </div>
 </body>
 </html>
