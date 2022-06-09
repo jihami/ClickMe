@@ -98,6 +98,7 @@ body{
                 text-align:center;
                 line-height:50px;
                 list-style:none;
+                cursor:pointer;
             }
 
             #menu ul li img{

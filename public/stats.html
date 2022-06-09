@@ -7,16 +7,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/stats.css">
+    <script>
+        const username = sessionStorage.getItem("name")
+    </script>
 </head>
 <body>
     <div id="head">
         <div id="logo" onclick="location.href='index.html'">
-            <img src="img/logo_color.png" alt="lofo">
+            <img src="img/logo_color.png" alt="logo">
         </div>
 
         <div id="user">
             <ul id="head_menu">
-                <a href="mypage.html"><li id="user_name">Kimclick님</li></a>
+                <a href="mypage.html">
+                    <li id="user_name" style="width:150px;">Kimclick님</li>
+                    <script>
+                        document.getElementById('user_name').innerHTML = username+"님"
+                    </script>
+                </a>
             </ul>
         </div>
     </div>

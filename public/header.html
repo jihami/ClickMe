@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/header.css">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="js/header.js"></script>
+    <script>
+        const username = sessionStorage.getItem("name")
+    </script>
 </head>
 <body>
     <div id="popup">
@@ -57,7 +60,12 @@
 
         <div id="user">
             <ul id="head_menu">
-                <a href="mypage.html"><li id="user_name">Kimclick님</li></a>
+                <a href="mypage.html">
+                    <li id="user_name" style="width:150px;">Kimclick님</li>
+                    <script>
+                        document.getElementById('user_name').innerHTML = username+"님"
+                    </script>
+                </a>
             </ul>
         </div>
     </div>
