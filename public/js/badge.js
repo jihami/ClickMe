@@ -91,14 +91,15 @@ $(function(){
         $('#popup').hide()
     })
 })
-function submit(gitToken){
+function submit(gitToken, gitName){
     // textarea 에 있는 코드 가져오기
     var api = document.getElementById('badgeText');
     // console.log(api.textContent);
     var context = api.textContent;
     // console.log(context);
     const token = gitToken
-    const username = "Kimclick" // 로그인 구현후 변경
+    const username = gitName // 로그인 구현후 변경
+    console.log(gitName);
     const fileName = "README.md"
     //get sha, content
    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
