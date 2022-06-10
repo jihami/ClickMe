@@ -7,6 +7,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/header.css">
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="js/header.js"></script>
     <script>
@@ -52,9 +56,75 @@
         <div id="user">
             <ul id="head_menu">
                 <a href="mypage.html">
-                    <li id="user_name" style="width:150px;">Kimclick님</li>
+                    <a href="#"><li id="user_name" class="login" onclick="githubLogin()">Git Hub Login</li></a>
+                    <a href="#"><li id="logout" class="logout" onclick="githubLogOut()" style="display:none;">Logout</li></a>
                     <script>
-                        document.getElementById('user_name').innerHTML = username+"님"
+                        const firebaseConfig = {
+                            //  firebase sdk
+                            apiKey: "AIzaSyAScwaKmiKUyqgxaPBk2VUrydYSHUJF3pY",
+                            authDomain: "clickme-ca826.firebaseapp.com",
+                            projectId: "clickme-ca826",
+                            storageBucket: "clickme-ca826.appspot.com",
+                            messagingSenderId: "229716770871",
+                            appId: "1:229716770871:web:ba982b7fd732da3dd47fb2",
+                            measurementId: "G-KT1SPMPS2N"
+                        };
+
+                        firebase.initializeApp(firebaseConfig);
+
+                        const firebaseInstance = firebase;
+                        const authService = firebase.auth();
+                        const user = firebase.auth().currentUser;
+
+                        const githubLogin = async () => {
+                            const provider = new firebaseInstance.auth.GithubAuthProvider();
+                            const data = await authService.signInWithPopup(provider);
+
+                            const username = data.additionalUserInfo.username
+                            console.log(username)
+                            const email = data.user.email
+                            console.log(email)
+                            const displayName = data.user.displayName
+                            console.log(displayName)
+                            document.getElementById('user_name').innerHTML = username+"님"
+
+                            // 로그인 완료 시 로그아웃 버튼 보이기
+                            $(function(){
+                                $('#logout').show();
+                            })
+
+                            // 세션에 name를 사용하여 저장
+                            sessionStorage.setItem("name", username)
+                        }
+
+                        function githubLogOut() {
+                            firebase.auth().signOut().then(() => {
+                                // Sign-out successful.
+                                document.getElementById("user_name").innerHTML = "Git Hub Login"
+                            }).catch((error) => {
+                                // An error happened.
+                                console.log("logoutError")
+                            });
+
+                            // 로그아웃 시 버튼 숨기기
+                            $(function(){
+                                $('#logout').hide();
+                            })
+
+                            // 로그아웃 시 세션 삭제
+                            sessionStorage.removeItem("name")
+                        }
+
+                        // 세션이 있다면 로그인 상태 유지
+                        $(function (){
+                            if(sessionStorage.length != 0){
+                                document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님"
+
+                                $(function(){
+                                    $('#logout').show();
+                                })
+                            }
+                        })
                     </script>
                 </a>
             </ul>
