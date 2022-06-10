@@ -35,8 +35,6 @@
       const provider = new firebaseInstance.auth.GithubAuthProvider();
       const data = await authService.signInWithPopup(provider);
 
-      document.getElementById('login').value = '00님'
-      console.log(data)
       const username = data.additionalUserInfo.username
       console.log(username)
       const email = data.user.email
@@ -103,7 +101,7 @@
   </div>
 
   <div>
-    <img src="img/main_wave.png" style="width:100%; height:820px; float:left; position:absolute">
+    <img src="img/main_wave.png" style="width:100%; height:820px; float:left; position:absolute" alt="header">
 
     <div id="head">
       <div id="logo" onclick="location.href='index.html'">
@@ -138,7 +136,7 @@
           <li id="header">
             <a href="header.html">
               HEADER
-              <img src="https://capsule-render.vercel.app/api?type=wave&color=713fe8&height=200&text=WAVE">
+              <img src="https://capsule-render.vercel.app/api?type=wave&color=713fe8&height=200&text=WAVE" alt="header">
             </a>
           </li>
           <li id="badge">
