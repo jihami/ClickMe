@@ -12,6 +12,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="api/ClickMeToken.js"></script>
+    <script src="js/firebase.js"></script>
     <script src="js/stats.js"></script>
     <script>
         const username = sessionStorage.getItem("name")
@@ -24,9 +26,9 @@
         </button>
 
         <div id="popup_contents">
-            <div id="badgeExample"></div>
-            <label><textarea id="badgeText" maxlength="500" disabled></textarea></label>
-            <button type="button" id="submit" onclick="submit(toKen)">전송</button>
+            <div id="statsExample"></div>
+            <label><textarea id="statsText" maxlength="500" disabled></textarea></label>
+            <button type="button" id="submit" onclick="gitsubmit(toKen)">전송</button>
             <button type="button" id="cancel">취소</button>
             <div id="goGit" onclick="goGit()">내 git 페이지 가기</div>
             <div id="alert" style="color: red">오류 시 잠시 후 다시 시도해주세요.</div>
@@ -40,78 +42,8 @@
 
         <div id="user">
             <ul id="head_menu">
-                <a href="mypage.html">
-                    <a href="#"><li id="user_name" class="login" onclick="githubLogin()">Git Hub Login</li></a>
-                    <a href="#"><li id="logout" class="logout" onclick="githubLogOut()" style="display:none;">Logout</li></a>
-                    <script>
-                        const firebaseConfig = {
-                            //  firebase sdk
-                            apiKey: "AIzaSyAScwaKmiKUyqgxaPBk2VUrydYSHUJF3pY",
-                            authDomain: "clickme-ca826.firebaseapp.com",
-                            projectId: "clickme-ca826",
-                            storageBucket: "clickme-ca826.appspot.com",
-                            messagingSenderId: "229716770871",
-                            appId: "1:229716770871:web:ba982b7fd732da3dd47fb2",
-                            measurementId: "G-KT1SPMPS2N"
-                        };
-
-                        firebase.initializeApp(firebaseConfig);
-
-                        const firebaseInstance = firebase;
-                        const authService = firebase.auth();
-                        const user = firebase.auth().currentUser;
-
-                        const githubLogin = async () => {
-                            const provider = new firebaseInstance.auth.GithubAuthProvider();
-                            const data = await authService.signInWithPopup(provider);
-
-                            const username = data.additionalUserInfo.username
-                            console.log(username)
-                            const email = data.user.email
-                            console.log(email)
-                            const displayName = data.user.displayName
-                            console.log(displayName)
-                            document.getElementById('user_name').innerHTML = username+"님"
-
-                            // 로그인 완료 시 로그아웃 버튼 보이기
-                            $(function(){
-                                $('#logout').show();
-                            })
-
-                            // 세션에 name를 사용하여 저장
-                            sessionStorage.setItem("name", username)
-                        }
-
-                        function githubLogOut() {
-                            firebase.auth().signOut().then(() => {
-                                // Sign-out successful.
-                                document.getElementById("user_name").innerHTML = "Git Hub Login"
-                            }).catch((error) => {
-                                // An error happened.
-                                console.log("logoutError")
-                            });
-
-                            // 로그아웃 시 버튼 숨기기
-                            $(function(){
-                                $('#logout').hide();
-                            })
-
-                            // 로그아웃 시 세션 삭제
-                            sessionStorage.removeItem("name")
-                        }
-
-                        // 세션이 있다면 로그인 상태 유지
-                        $(function (){
-                            if(sessionStorage.length != 0){
-                                document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님"
-
-                                $(function(){
-                                    $('#logout').show();
-                                })
-                            }
-                        })
-                    </script>
-                </a>
+                <a href="#"><li id="user_name" class="login" onclick="githubLogin()">Git Hub Login</li></a>
+                <a href="#"><li id="logout" class="logout" onclick="githubLogOut()" style="display:none;">Logout</li></a>
             </ul>
         </div>
     </div>
@@ -122,259 +54,259 @@
         <table id="contents">
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true" alt="STATS"/>
+                    <img class="stat" id="basic" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=flag-india" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=vue" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=algoia" alt="STATS"/>
+                    <img class="stat" id="flag-india" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=flag-india" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=coalt2" alt="STATS"/>
+                    <img class="stat" id="vue" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=vue" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=buefy" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=swift" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=solarized-light" alt="STATS"/>
+                    <img class="stat" id="algoia" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=algoia" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=gruvbox_light" alt="STATS"/>
+                    <img class="stat" id="coalt2" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=coalt2" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=moltack" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=kacho_ga" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=maroongold" alt="STATS"/>
+                    <img class="stat" id="buefy" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=buefy" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=gruvbox" alt="STATS"/>
+                    <img class="stat" id="swift" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=swift" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=calm" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=cobalt" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=vue-dark" alt="STATS"/>
+                    <img class="stat" id="solarized-light" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=solarized-light" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=nord" alt="STATS"/>
+                    <img class="stat" id="gruvbox_light" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=gruvbox_light" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=material-palenight" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=blueberry" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=aura_dark" alt="STATS"/>
+                    <img class="stat" id="moltack" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=moltack" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=panda" alt="STATS"/>
+                    <img class="stat" id="kacho_ga" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=kacho_ga" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=noctis_minimus" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=apprentice" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=slateorange" alt="STATS"/>
+                    <img class="stat" id="maroongold" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=maroongold" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=onedark" alt="STATS"/>
+                    <img class="stat" id="gruvbox" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=gruvbox" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=city_lights" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=discord_old_blurple" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=darcula" alt="STATS"/>
+                    <img class="stat" id="calm" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=calm" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=bear" alt="STATS"/>
+                    <img class="stat" id="cobalt" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=cobalt" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=monokai" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=react" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=ayu-mirage" alt="STATS"/>
+                    <img class="stat" id="vue-dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=vue-dark" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=dracula" alt="STATS"/>
+                    <img class="stat" id="nord" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=nord" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=vision-friendly-dark" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=radical" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=merko" alt="STATS"/>
+                    <img class="stat" id="material-palenight" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=material-palenight" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=tokyonight" alt="STATS"/>
+                    <img class="stat" id="blueberry" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=blueberry" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=dark" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=midnight-purple" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=nightowl" alt="STATS"/>
+                    <img class="stat" id="aura_dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=aura_dark" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=blue-green" alt="STATS"/>
+                    <img class="stat" id="panda" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=panda" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=great-gatsby" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=chartreuse-dark" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=omni" alt="STATS"/>
+                    <img class="stat" id="noctis_minimus" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=noctis_minimus" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=gotham" alt="STATS"/>
+                    <img class="stat" id="apprentice" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=apprentice" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=yeblu" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=outrun" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=ocean_dark" alt="STATS"/>
+                    <img class="stat" id="slateorange" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=slateorange" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=github_dark" alt="STATS"/>
+                    <img class="stat" id="onedark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=onedark" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=aura" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=codeSTACKr" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=rose_pine" alt="STATS"/>
+                    <img class="stat" id="city_lights" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=city_lights" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=synthwave" alt="STATS"/>
+                    <img class="stat" id="discord_old_blurple" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=discord_old_blurple" alt="STATS"/>
                 </td>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=shades-of-purple" alt="STATS"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=jolly" alt="STATS"/>
-                </td>
-                <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=solarized-dark" alt="STATS"/>
+                    <img class="stat" id="darcula" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=darcula" alt="STATS"/>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <img class="stat" src="https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=prussian" alt="STATS"/>
+                    <img class="stat" id="bear" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=bear" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="monokai" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=monokai" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="react" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=react" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="ayu-mirage" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=ayu-mirage" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="dracula" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=dracula" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="vision-friendly-dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=vision-friendly-dark" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="radical" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="merko" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=merko" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="tokyonight" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=tokyonight" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=dark" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="midnight-purple" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=midnight-purple" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="nightowl" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=nightowl" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="blue-green" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=blue-green" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="great-gatsby" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=great-gatsby" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="chartreuse-dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=chartreuse-dark" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="omni" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=omni" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="gotham" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=gotham" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="yeblu" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=yeblu" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="outrun" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=outrun" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="ocean_dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=ocean_dark" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="github_dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=github_dark" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="aura" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=aura" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="codeSTACKr" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=codeSTACKr" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="rose_pine" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=rose_pine" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="synthwave" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=synthwave" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="shades-of-purple" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=shades-of-purple" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="jolly" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=jolly" alt="STATS"/>
+                </td>
+                <td>
+                    <img class="stat" id="solarized-dark" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=solarized-dark" alt="STATS"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="stat" id="prussian" src="https://github-readme-stats.vercel.app/api?username=KimClick&show_icons=true&theme=prussian" alt="STATS"/>
                 </td>
             </tr>
         </table>

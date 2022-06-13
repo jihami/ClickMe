@@ -11,7 +11,7 @@ body{
 
 #popup{
     width:750px;
-    height:450px;
+    height:500px;
     top:32%;
     left:50%;
     display:none;
@@ -42,17 +42,11 @@ body{
         width:100%;
         height:60%;
         float:left;
-        /*background-color: #039be5;*/
-        margin-top: 30px;
         text-align: center;
         display: inline-block;
     }
-        #badgeExample{
-            margin-top: 30px;
-        }
-        #badgeText{
+        #statsText{
             width: 100%;
-            height: 100px;
             margin-top: 30px;
             font-size: 20px;
             resize: none;
@@ -79,7 +73,7 @@ body{
             background-color: #6a6adc;
         }
         #goGit{
-            margin-top: 50px;
+            margin-top: 30px;
             color: #6a6adc;
         }
 
