@@ -72,8 +72,17 @@ const badgeData = {
     'Xcode' : '<img  src="https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=Xcode&logoColor=white" alt="BADGE"/>',
     'WebStorm' : '<img src="https://img.shields.io/badge/WebStorm-000000?style=flat-square&logo=WebStorm&logoColor=white" alt="BADGE"/>'
 }
+// <td className="dot" id="pRandom" style="background-color:red;">Proven random colo</td>
+// <td className="dotSpace"></td>
+// <td className="dot" id="rRandom" style="background-color:orange;">Really random color</td>
+// <td className="dotSpace"></td>
+// <td className="dot" id="pRGadient" style="background-color:yellow;">Proven random gradient</td>
+// <td className="dotSpace"></td>
+// <td className="dot" id="hexcode" style="background-color:#b897ff;">hexcode default (#B897FF)</td>
+// <td className="dotSpace"></td>
+// <td className="dot" id="clickMe" style="background-color:#713fe8;">ClickMe color</td>
 $(function(){
-    api = $('.badge').on('click', function(){
+    $('.badge').on('click', function(){
         $('#popup').show()
         var badgeId = this.id
         // console.log(badgeData[badgeId]);
