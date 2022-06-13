@@ -72,21 +72,12 @@ const badgeData = {
     'Xcode' : '<img  src="https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=Xcode&logoColor=white" alt="BADGE"/>',
     'WebStorm' : '<img src="https://img.shields.io/badge/WebStorm-000000?style=flat-square&logo=WebStorm&logoColor=white" alt="BADGE"/>'
 }
-// <td className="dot" id="pRandom" style="background-color:red;">Proven random colo</td>
-// <td className="dotSpace"></td>
-// <td className="dot" id="rRandom" style="background-color:orange;">Really random color</td>
-// <td className="dotSpace"></td>
-// <td className="dot" id="pRGadient" style="background-color:yellow;">Proven random gradient</td>
-// <td className="dotSpace"></td>
-// <td className="dot" id="hexcode" style="background-color:#b897ff;">hexcode default (#B897FF)</td>
-// <td className="dotSpace"></td>
-// <td className="dot" id="clickMe" style="background-color:#713fe8;">ClickMe color</td>
 $(function(){
     $('.badge').on('click', function(){
         $('#popup').show()
-        var badgeId = this.id
+        let badgeId = this.id
         // console.log(badgeData[badgeId]);
-        var api = badgeData[badgeId]
+        let api = badgeData[badgeId]
         document.getElementById('badgeText').innerHTML = api;
         document.getElementById('badgeExample').innerHTML = api;
         // document.getElementById('badgeText').innerHTML = "<xmp>"+api+"<xmp>";
@@ -102,9 +93,9 @@ $(function(){
 })
 function submit(gitToken, gitName){
     // textarea 에 있는 코드 가져오기
-    var api = document.getElementById('badgeText');
+    let api = document.getElementById('badgeText');
     // console.log(api.textContent);
-    var context = api.textContent;
+    let context = api.textContent;
     // console.log(context);
     const token = gitToken
     const username = gitName // 로그인 구현후 변경
@@ -115,8 +106,8 @@ function submit(gitToken, gitName){
         .then((response) => response.json())
         .then((data) =>{
             console.log("get");
-            var commitMessage = "delFile"
-            var sha = data.sha
+            let commitMessage = "delFile"
+            let sha = data.sha
             console.log(sha)
             fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
                 method: "DELETE",
@@ -132,7 +123,7 @@ function submit(gitToken, gitName){
             console.log(sha);
             // add
             commitMessage = "AddREADME.md"
-            var content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
+            let content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
             // var content = data.content+context;  //  base64로 인코
             // console.log(content)
             fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
