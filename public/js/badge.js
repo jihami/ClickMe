@@ -1,3 +1,68 @@
+const firebaseInstance = firebase;
+const authService = firebase.auth();
+const user = firebase.auth().currentUser;
+
+const githubLogin = async () => {
+    const provider = new firebaseInstance.auth.GithubAuthProvider();
+    const data = await authService.signInWithPopup(provider);
+
+    const username = data.additionalUserInfo.username
+    console.log(username)
+    const email = data.user.email
+    console.log(email)
+    const displayName = data.user.displayName
+    console.log(displayName)
+    document.getElementById('user_name').innerHTML = username+"님"
+
+    // 로그인 완료 시 로그아웃 버튼 보이기
+    $(function(){
+        $('#logout').show();
+    })
+
+    // 세션에 name를 사용하여 저장
+    sessionStorage.setItem("name", username)
+}
+
+function githubLogOut() {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        document.getElementById("user_name").innerHTML = "Git Hub Login"
+    })
+
+    // 로그아웃 시 버튼 숨기기
+    $(function(){
+        $('#logout').hide();
+    })
+
+    // 로그아웃 시 세션 삭제
+    sessionStorage.removeItem("name")
+}
+
+// 세션이 있다면 로그인 상태 유지
+$(function (){
+    if(sessionStorage.length !== 0){
+        document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님"
+
+        $(function(){
+            $('#logout').show();
+        })
+    }
+})
+function gitsubmit(toKen){
+    console.log("name")
+    token = toKen
+    $(function (){
+        if(sessionStorage.length !== 0){
+            name = sessionStorage.getItem("name")
+            submit(toKen, name)
+            // console.log(toKen)
+            // console.log(name)
+        }else {
+            alert("로그인하세요");
+        }
+    })
+}
+
 const badgeData = {
     'Adobe' : '<img src="https://img.shields.io/badge/Adobe-FF0000?style=flat-square&logo=Adobe&logoColor=white" alt="BADGE"/>',
     'Adobe XD' : '<img src="https://img.shields.io/badge/Adobe XD-FF61F6?style=flat-square&logo=Adobe XD&logoColor=white" alt="BADGE"/>',
