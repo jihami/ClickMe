@@ -172,6 +172,7 @@ $(function(){
     });
 });
 function goGit(){
-    const username = "Kimclick"
+    name = sessionStorage.getItem("name")
+    const username = name
     window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
 }

@@ -210,6 +210,7 @@ function submit(gitToken, gitName){
     // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
 }
 function goGit(){
-    const username = "Kimclick"
+    name = sessionStorage.getItem("name")
+    const username = name
     window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
 }
