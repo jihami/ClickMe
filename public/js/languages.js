@@ -1,3 +1,70 @@
+const firebaseInstance = firebase;
+const authService = firebase.auth();
+const user = firebase.auth().currentUser;
+
+const githubLogin = async () => {
+    const provider = new firebaseInstance.auth.GithubAuthProvider();
+    const data = await authService.signInWithPopup(provider);
+
+    const username = data.additionalUserInfo.username
+    console.log(username)
+    const email = data.user.email
+    console.log(email)
+    const displayName = data.user.displayName
+    console.log(displayName)
+    document.getElementById('user_name').innerHTML = username+"님"
+
+    // 로그인 완료 시 로그아웃 버튼 보이기
+    $(function(){
+        $('#logout').show();
+    })
+
+    // 세션에 name를 사용하여 저장
+    sessionStorage.setItem("name", username)
+}
+
+function githubLogOut() {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        document.getElementById("user_name").innerHTML = "Git Hub Login"
+    }).catch((error) => {
+        // An error happened.
+        console.log("logoutError")
+    });
+
+    // 로그아웃 시 버튼 숨기기
+    $(function(){
+        $('#logout').hide();
+    })
+
+    // 로그아웃 시 세션 삭제
+    sessionStorage.removeItem("name")
+}
+
+// 세션이 있다면 로그인 상태 유지
+$(function (){
+    if(sessionStorage.length != 0){
+        document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님"
+
+        $(function(){
+            $('#logout').show();
+        })
+    }
+})
+function gitsubmit(toKen){
+    console.log("name")
+    token = toKen
+    $(function (){
+        if(sessionStorage.length !== 0){
+            name = sessionStorage.getItem("name")
+            submit(toKen, name)
+            // console.log(toKen)
+            // console.log(name)
+        }else {
+            alert("로그인하세요");
+        }
+    })
+}
 const langData = {
     'basic' : '<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Kimclick&layout=compact" alt="BADGE"/>',
     'flag-india' : '<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Kimclick&layout=compact&theme=flag-india" alt="BADGE"/>',
@@ -59,15 +126,12 @@ const langData = {
 }
 
 $(function(){
-    api = $('.lang').on('click', function(){
+    $('.lang').on('click', function(){
         $('#popup').show()
-        // var badgeId = this.id
-        // console.log(badgeData[badgeId]);
-        console.log("dd");
-        // var api = badgeData[badgeId]
-        // document.getElementById('badgeText').innerHTML = api;
-        // document.getElementById('badgeExample').innerHTML = api;
-        // document.getElementById('badgeText').innerHTML = "<xmp>"+api+"<xmp>";
+        let langId = this.id
+        let api = langData[langId]
+        document.getElementById('langText').innerHTML = api;
+        document.getElementById('langExample').innerHTML = api;
         return api
     })
     $('#close').on('click', function(){
@@ -78,3 +142,60 @@ $(function(){
         $('#popup').hide()
     })
 })
+function submit(gitToken, gitName){
+    // textarea 에 있는 코드 가져오기
+    let api = document.getElementById('langText');
+    // console.log(api.textContent);
+    let context = api.textContent;
+    // console.log(context);
+    const token = gitToken
+    const username = gitName // 로그인 구현후 변경
+    console.log(gitName);
+    const fileName = "README.md"
+    //get sha, content
+    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
+        .then((response) => response.json())
+        .then((data) =>{
+            console.log("get");
+            let commitMessage = "delFile"
+            let sha = data.sha
+            console.log(sha)
+            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
+                method: "DELETE",
+                headers: {
+                    "Authorization" : "token "+token,
+                },
+                body: JSON.stringify({
+                    message:commitMessage,
+                    sha:sha
+                }),
+            });
+            console.log("del");
+            console.log(sha);
+            // add
+            commitMessage = "AddREADME.md"
+            let content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
+            // var content = data.content+context;  //  base64로 인코
+            // console.log(content)
+            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+                method: "PUT",
+                headers: {
+                    "Accept": "application/vnd.github.v3+json",
+                    "Authorization" : "token "+toKen,
+                },
+                body: JSON.stringify({
+                    message : commitMessage,
+                    owner : username,
+                    content : content , //base 64
+                    sha:"" //비워둠
+                }),
+            });
+            console.log("add");
+        });
+
+    // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
+}
+function goGit(){
+    const username = "Kimclick"
+    window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
+}
