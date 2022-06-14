@@ -27,10 +27,7 @@ function githubLogOut() {
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
         document.getElementById("user_name").innerHTML = "Git Hub Login"
-    }).catch((error) => {
-        // An error happened.
-        console.log("logoutError")
-    });
+    })
 
     // 로그아웃 시 버튼 숨기기
     $(function(){
@@ -43,7 +40,7 @@ function githubLogOut() {
 
 // 세션이 있다면 로그인 상태 유지
 $(function (){
-    if(sessionStorage.length != 0){
+    if(sessionStorage.length !== 0){
         document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님"
 
         $(function(){
@@ -197,7 +194,13 @@ function submit(gitToken, gitName){
     // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
 }
 function goGit(){
-    name = sessionStorage.getItem("name")
-    const username = name
-    window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
+    $(function (){
+        if(sessionStorage.length !== 0){
+            name = sessionStorage.getItem("name")
+            const username = name;
+            window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
+        }else {
+            alert("로그인하세요");
+        }
+    });
 }

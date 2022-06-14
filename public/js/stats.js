@@ -196,7 +196,13 @@ function submit(gitToken, gitName){
     // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
 }
 function goGit(){
-    name = sessionStorage.getItem("name")
-    const username = name
-    window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
+    $(function (){
+        if(sessionStorage.length !== 0){
+            name = sessionStorage.getItem("name")
+            const username = name;
+            window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
+        }else {
+            alert("로그인하세요");
+        }
+    });
 }
