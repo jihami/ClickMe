@@ -114,45 +114,45 @@ function submit(gitToken, gitName){
     console.log(gitName);
     const fileName = "README.md"
     //get sha, content
-    fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
-        .then((response) => response.json())
-        .then((data) =>{
-            console.log("get");
-            let commitMessage = "delFile"
-            let sha = data.sha
-            console.log(sha)
-            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
-                method: "DELETE",
-                headers: {
-                    "Authorization" : "token "+token,
-                },
-                body: JSON.stringify({
-                    message:commitMessage,
-                    sha:sha
-                }),
-            });
-            console.log("del");
-            console.log(sha);
-            // add
-            commitMessage = "AddREADME.md"
-            let content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
-            // var content = data.content+context;  //  base64로 인코
-            // console.log(content)
-            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
-                method: "PUT",
-                headers: {
-                    "Accept": "application/vnd.github.v3+json",
-                    "Authorization" : "token "+toKen,
-                },
-                body: JSON.stringify({
-                    message : commitMessage,
-                    owner : username,
-                    content : content , //base 64
-                    sha:"" //비워둠
-                }),
-            });
-            console.log("add");
-        });
+    function del() {
+        fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/" + fileName)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("get");
+                let commitMessage = "delFile"
+                let sha = data.sha
+                console.log(sha)
+                fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/" + fileName, { //경로, 파일명
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": "token " + token,
+                    },
+                    body: JSON.stringify({
+                        message: commitMessage,
+                        sha: sha
+                    }),
+                });
+                console.log("del");
+                console.log(sha);
+                commitMessage = "AddREADME.md"
+                let content = btoa(unescape(encodeURIComponent("<br/>" + context)));
+                fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+                    method: "PUT",
+                    headers: {
+                        "Accept": "application/vnd.github.v3+json",
+                        "Authorization" : "token "+toKen,
+                    },
+                    body: JSON.stringify({
+                        message : commitMessage,
+                        owner : username,
+                        content : content , //base 64
+                        sha:"" //비워둠
+                    }),
+                });
+                console.log("add");
+            })
+    }
+    del()
 
     // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
 }
