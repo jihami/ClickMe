@@ -64,12 +64,12 @@ function gitsubmit(toKen){
 
 function pop(id){
     $('#popup').show()
-    console.log(id)
+    // console.log(id)
     return id
 }
 function color(colorCode){
-    console.log(colorCode)
-    console.log(pId)
+    // console.log(colorCode)
+    // console.log(pId)
     switch (colorCode){
         case "pR":
             colorCode = "timeAuto"; break;
@@ -107,54 +107,69 @@ function submit(gitToken, gitName){
     // textarea 에 있는 코드 가져오기
     let api = document.getElementById('headerText');
     // console.log(api.textContent);
-    let context = api.textContent;
     // console.log(context);
     const token = gitToken
     const username = gitName // 로그인 구현후 변경
-    console.log(gitName);
+    // console.log(gitName);
     const fileName = "README.md"
     //get sha, content
-    function del() {
-        fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/" + fileName)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("get");
-                let commitMessage = "delFile"
-                let sha = data.sha
-                console.log(sha)
-                fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/" + fileName, { //경로, 파일명
-                    method: "DELETE",
-                    headers: {
-                        "Authorization": "token " + token,
-                    },
-                    body: JSON.stringify({
-                        message: commitMessage,
-                        sha: sha
-                    }),
-                });
-                console.log("del");
-                console.log(sha);
-                commitMessage = "AddREADME.md"
-                let content = btoa(unescape(encodeURIComponent("<br/>" + context)));
-                fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
-                    method: "PUT",
-                    headers: {
-                        "Accept": "application/vnd.github.v3+json",
-                        "Authorization" : "token "+toKen,
-                    },
-                    body: JSON.stringify({
-                        message : commitMessage,
-                        owner : username,
-                        content : content , //base 64
-                        sha:"" //비워둠
-                    }),
-                });
-                console.log("add");
-            })
+    function getTitle(){
+        // const response = fetch("https://jsonplaceholder.typicode.com/posts");
+        const response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/" + fileName);
+        return response.then(res => res.json());
     }
-    del()
 
-    // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
+    async function exec(){
+        var apiFuc;
+        try {
+            apiFuc = await getTitle();
+            // console.log(text[0].title);
+            var sha = apiFuc.sha
+            var con = apiFuc.content
+            console.log(sha);
+            console.log(con);
+            del(sha)
+            await put(con)
+        }
+        catch(error){
+            // console.log(error);
+            alert("오류가 발생했습니다.");
+        }
+    }
+    exec();
+
+    async function del(sha){
+        var commitMessage = "delREADME.md";
+        fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/README.md", { //경로 -> 파일명
+            method: "DELETE",
+            headers: {
+                "Authorization" : "token "+token,
+            },
+            body: JSON.stringify({
+                message:commitMessage,
+                sha:sha // sha 가져와서 붙이기
+            }),
+        });
+    }
+    function put(con){
+        let context = api.textContent;
+        var content = con + btoa(unescape(encodeURIComponent("<br/>"+context)));
+        console.log(content + "   "+token)
+        var commitMessage = "addREADME.md"
+        fetch("https://api.github.com/repos/Kimclick/Kimclick/contents/README.md", { //경로 -> 파일명
+            method: "PUT",
+            headers: {
+                "Accept": "application/vnd.github.v3+json",
+                "Authorization" : "token "+token,
+            },
+            body: JSON.stringify({
+                message : commitMessage,
+                owner : username,
+                content : content , //base 64
+                sha:"" //비워둠
+            }),
+        });
+    }
 }
 
 $(function(){

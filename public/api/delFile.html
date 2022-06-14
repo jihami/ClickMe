@@ -13,7 +13,7 @@
     const username = userName
     const fileName = "README.md"
     const commitMessage = "delFile"
-    const sha = "d962ec3b334cce6fd058b051854ad45dd7bff101"
+    let sha = "d962ec3b334cce6fd058b051854ad45dd7bff101"
     // fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
     fetch("https://api.github.com/repos/Kimclick/Kimclick/contents/README.md", { //경로 -> 파일명
         method: "DELETE",
