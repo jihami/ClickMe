@@ -133,15 +133,15 @@ $(function(){
         document.getElementById('statsExample').innerHTML = api;
         // document.getElementById('badgeText').innerHTML = "<xmp>"+api+"<xmp>";
         return api
-    })
+    });
     $('#close').on('click', function(){
         $('#popup').hide()
-    })
+    });
 
     $('#cancel').on('click', function(){
         $('#popup').hide()
-    })
-})
+    });
+});
 function submit(gitToken, gitName){
     // textarea 에 있는 코드 가져오기
     let api = document.getElementById('statsText');
@@ -194,4 +194,8 @@ function submit(gitToken, gitName){
         });
 
     // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
+}
+function goGit(){
+    const username = "Kimclick"
+    window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
 }

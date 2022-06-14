@@ -163,11 +163,15 @@ $(function(){
         $('#popup').hide()
         document.getElementById('headerText').innerHTML = "";
         document.getElementById('headerExample').innerHTML = "";
-    })
+    });
 
     $('#cancel').on('click', function(){
         $('#popup').hide()
         document.getElementById('headerText').innerHTML = "";
         document.getElementById('headerExample').innerHTML = "";
-    })
-})
+    });
+});
+function goGit(){
+    const username = "Kimclick"
+    window.open("about:blank").location.href = "https://github.com/"+username+"/"+username;
+}

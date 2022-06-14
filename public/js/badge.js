@@ -147,15 +147,15 @@ $(function(){
         document.getElementById('badgeExample').innerHTML = api;
         // document.getElementById('badgeText').innerHTML = "<xmp>"+api+"<xmp>";
         return api
-    })
+    });
     $('#close').on('click', function(){
         $('#popup').hide()
-    })
+    });
 
     $('#cancel').on('click', function(){
         $('#popup').hide()
-    })
-})
+    });
+});
 function submit(gitToken, gitName){
     // textarea 에 있는 코드 가져오기
     let api = document.getElementById('badgeText');
