@@ -101,7 +101,7 @@ function color(colorCode){
     console.log(txt)
     document.getElementById('headerText').innerHTML = txt;
     document.getElementById('headerExample').innerHTML = txt;
-    return colorCode
+    return colorCode;
 }
 function sleep(ms) {
     const wakeUpTime = Date.now() + ms;
@@ -110,11 +110,8 @@ function sleep(ms) {
 async function submit(gitToken, gitName) {
     // textarea 에 있는 코드 가져오기
     let api = document.getElementById('headerText');
-    // console.log(api.textContent);
-    // console.log(context);
-    const token = gitToken
-    const username = gitName // 로그인 구현후 변경
-    // console.log(gitName);
+    const token = gitToken;
+    const username = gitName;
     console.log("15초 후 전송");
     sleep(15000);
     fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md")
@@ -124,16 +121,7 @@ async function submit(gitToken, gitName) {
         .then(async (data) => {
             console.log(data.sha);
             console.log(data);
-            await fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md", { //경로 -> 파일명
-                method: "DELETE",
-                headers: {
-                    "Authorization": "token " + token,
-                },
-                body: JSON.stringify({
-                    message: "del",
-                    sha: data.sha // sha 가져와서 붙이기
-                }),
-            });
+
             const commitMessage = "addREADME"
             var con = atob(decodeURIComponent(data.content));
             let context = api.textContent;
@@ -148,14 +136,18 @@ async function submit(gitToken, gitName) {
                     message: commitMessage,
                     owner: username,
                     content: content, //base 64
-                    sha: "" //비워둠
+                    sha: data.sha //비워둠
                 }),
-            }).catch((e)=>console.log("작 err"+e));
+            }).catch((e)=>{
+                console.log("작 err"+e)
+                alert("새로고침 후 재시도 해주세요.")
+            });
         })
-        .catch((e)=>console.log("큰 err"+e));
+        .catch((e)=>{
+            console.log("큰 err"+e)
+            alert("새로고침 후 재시도 해주세요.")
+        });
     alert("전송완료");
-    // window.open("https://github.com/" + username + "/" + username);
-    // await
 }
 
 $(function(){

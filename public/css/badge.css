@@ -53,7 +53,6 @@ body{
          }
         #badgeText{
             width: 100%;
-            height: 100px;
             margin-top: 30px;
             font-size: 20px;
             resize: none;
@@ -80,7 +79,7 @@ body{
         background-color: #6a6adc;
     }
     #goGit{
-        margin-top: 50px;
+        margin-top: 30px;
         color: #6a6adc;
     }
 

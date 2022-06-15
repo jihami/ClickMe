@@ -1,6 +1,8 @@
 const firebaseInstance = firebase;
 const authService = firebase.auth();
 const user = firebase.auth().currentUser;
+const username = sessionStorage.getItem("name")
+let response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md");
 
 const githubLogin = async () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
@@ -49,14 +51,11 @@ $(function (){
     }
 })
 function gitsubmit(toKen){
-    console.log("name")
     token = toKen
     $(function (){
         if(sessionStorage.length !== 0){
             name = sessionStorage.getItem("name")
             submit(toKen, name)
-            // console.log(toKen)
-            // console.log(name)
         }else {
             alert("로그인하세요");
         }
@@ -141,11 +140,9 @@ $(function(){
     $('.badge').on('click', function(){
         $('#popup').show()
         let badgeId = this.id
-        // console.log(badgeData[badgeId]);
         let api = badgeData[badgeId]
         document.getElementById('badgeText').innerHTML = api;
         document.getElementById('badgeExample').innerHTML = api;
-        // document.getElementById('badgeText').innerHTML = "<xmp>"+api+"<xmp>";
         return api
     });
     $('#close').on('click', function(){
@@ -156,58 +153,51 @@ $(function(){
         $('#popup').hide()
     });
 });
-function submit(gitToken, gitName){
+function sleep(ms) {
+    const wakeUpTime = Date.now() + ms;
+    while (Date.now() < wakeUpTime) {}
+}
+async function submit(gitToken, gitName) {
     // textarea 에 있는 코드 가져오기
     let api = document.getElementById('badgeText');
-    // console.log(api.textContent);
-    let context = api.textContent;
-    // console.log(context);
-    const token = gitToken
-    const username = gitName // 로그인 구현후 변경
-    console.log(gitName);
-    const fileName = "README.md"
-    //get sha, content
-   fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName)
-        .then((response) => response.json())
-        .then((data) =>{
-            console.log("get");
-            let commitMessage = "delFile"
-            let sha = data.sha
-            console.log(sha)
-            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로, 파일명
-                method: "DELETE",
-                headers: {
-                    "Authorization" : "token "+token,
-                },
-                body: JSON.stringify({
-                    message:commitMessage,
-                    sha:sha
-                }),
-            });
-            console.log("del");
-            console.log(sha);
-            // add
-            commitMessage = "AddREADME.md"
-            let content = data.content+btoa(unescape(encodeURIComponent("<br/>"+context)));  //  base64로 인코
-            // var content = data.content+context;  //  base64로 인코
-            // console.log(content)
-            fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/"+fileName, { //경로 -> 파일명
+    const token = gitToken;
+    const username = gitName;
+    console.log("15초 후 전송");
+    await sleep(15000);
+    fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md")
+        .then((res) => {
+            return res.json();
+        })
+        .then(async (data) => {
+            console.log(data.sha);
+            console.log(data);
+
+            const commitMessage = "addREADME"
+            var con = atob(decodeURIComponent(data.content));
+            let context = api.textContent;
+            var content = btoa(con + " " + context);
+            fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md", { //경로 -> 파일명
                 method: "PUT",
                 headers: {
                     "Accept": "application/vnd.github.v3+json",
-                    "Authorization" : "token "+toKen,
+                    "Authorization": "token " + token,
                 },
                 body: JSON.stringify({
-                    message : commitMessage,
-                    owner : username,
-                    content : content , //base 64
-                    sha:"" //비워둠
+                    message: commitMessage,
+                    owner: username,
+                    content: content, //base 64
+                    sha: data.sha //비워둠
                 }),
+            }).catch((e)=>{
+                console.log("작 err"+e)
+                alert("새로고침 후 재시도 해주세요.")
             });
-            console.log("add");
+        })
+        .catch((e)=>{
+            console.log("큰 err"+e)
+            alert("새로고침 후 재시도 해주세요.")
         });
-
-    // location.href = "http://localhost:63342/ClikeMe/public/badge.html";
+    alert("전송완료");
 }
 function goGit(){
     $(function (){
