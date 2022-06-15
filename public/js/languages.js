@@ -157,7 +157,6 @@ async function submit(gitToken, gitName) {
             console.log(data.sha);
             console.log(data);
 
-            const commitMessage = "addREADME"
             var con = atob(decodeURIComponent(data.content));
             let context = api.textContent;
             var content = btoa(con + " " + context);
@@ -168,7 +167,7 @@ async function submit(gitToken, gitName) {
                     "Authorization": "token " + token,
                 },
                 body: JSON.stringify({
-                    message: commitMessage,
+                    message: "add README.md - ClickME",
                     owner: username,
                     content: content, //base 64
                     sha: data.sha //비워둠

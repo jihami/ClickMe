@@ -98,7 +98,6 @@ function color(colorCode){
         'Transparent'  : '<img src="https://capsule-render.vercel.app/api?type=transparent&fontColor='+colorCode+'&text='+username+'&height=150&fontSize=60&desc=Only%20Use%20Text&descAlignY=75&descAlign=60" style="width:100%" alt="HEADER"/>'
     }
     let txt = headerData[pId]
-    console.log(txt)
     document.getElementById('headerText').innerHTML = txt;
     document.getElementById('headerExample').innerHTML = txt;
     return colorCode;
@@ -122,7 +121,6 @@ async function submit(gitToken, gitName) {
             console.log(data.sha);
             console.log(data);
 
-            const commitMessage = "addREADME"
             var con = atob(decodeURIComponent(data.content));
             let context = api.textContent;
             var content = btoa(con + " " + context);
@@ -133,7 +131,7 @@ async function submit(gitToken, gitName) {
                     "Authorization": "token " + token,
                 },
                 body: JSON.stringify({
-                    message: commitMessage,
+                    message: "add README.md - ClickME",
                     owner: username,
                     content: content, //base 64
                     sha: data.sha //비워둠
