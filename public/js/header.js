@@ -2,13 +2,7 @@ const firebaseInstance = firebase;
 const authService = firebase.auth();
 const user = firebase.auth().currentUser;
 const username = sessionStorage.getItem("name")
-fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md" )
-    .then((response)=>response.json())
-    .then((data)=>{
-        console.log(data)
-        console.log(data.sha)
-        console.log((new Date).getTime())
-    })
+
 const githubLogin = async () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
     const data = await authService.signInWithPopup(provider);
@@ -61,7 +55,8 @@ function gitsubmit(toKen){
     $(function (){
         if(sessionStorage.length !== 0){
             name = sessionStorage.getItem("name")
-            submit(toKen, name)
+            submit(toKen, name);
+            // setTimeout(submit(toKen, name),30000);
         }else {
             alert("로그인하세요");
         }
@@ -108,8 +103,11 @@ function color(colorCode){
     document.getElementById('headerExample').innerHTML = txt;
     return colorCode
 }
-
-function submit(gitToken, gitName){
+function sleep(ms) {
+    const wakeUpTime = Date.now() + ms;
+    while (Date.now() < wakeUpTime) {}
+}
+async function submit(gitToken, gitName) {
     // textarea 에 있는 코드 가져오기
     let api = document.getElementById('headerText');
     // console.log(api.textContent);
@@ -117,46 +115,47 @@ function submit(gitToken, gitName){
     const token = gitToken
     const username = gitName // 로그인 구현후 변경
     // console.log(gitName);
-
-    function getTitle(){
-        let cacheName = 'CacheStorage';
-        let response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md");
-        return response.then(res => res.json());
-    }
-    async function exec(){
-        var apiFuc;
-        apiFuc = await getTitle();
-        var con = atob(decodeURIComponent(apiFuc.content));
-        var sha = apiFuc.sha;
-        console.log(sha);
-        console.log();
-        await put(con, sha);
-    }
-
-    exec();
-    function put(con, sha) {
-        let context = api.textContent;
-        var content = btoa(con + " " + context);
-        console.log(content)
-        var commitMessage = "addREADME.md"
-        fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md", { //경로 -> 파일명
-            method: "PUT",
-            headers: {
-                "Accept": "application/vnd.github.v3+json",
-                "Authorization": "token " + token,
-            },
-            body: JSON.stringify({
-                message: commitMessage,
-                owner: username,
-                content: content, //base 64
-                sha: sha,
-            })
+    console.log("15초 후 전송");
+    sleep(15000);
+    fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md")
+        .then((res) => {
+            return res.json();
         })
-
-        console.log('caches'in window)
-        console.log(window.caches)
-    }
-
+        .then(async (data) => {
+            console.log(data.sha);
+            console.log(data);
+            await fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md", { //경로 -> 파일명
+                method: "DELETE",
+                headers: {
+                    "Authorization": "token " + token,
+                },
+                body: JSON.stringify({
+                    message: "del",
+                    sha: data.sha // sha 가져와서 붙이기
+                }),
+            });
+            const commitMessage = "addREADME"
+            var con = atob(decodeURIComponent(data.content));
+            let context = api.textContent;
+            var content = btoa(con + " " + context);
+            fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md", { //경로 -> 파일명
+                method: "PUT",
+                headers: {
+                    "Accept": "application/vnd.github.v3+json",
+                    "Authorization": "token " + token,
+                },
+                body: JSON.stringify({
+                    message: commitMessage,
+                    owner: username,
+                    content: content, //base 64
+                    sha: "" //비워둠
+                }),
+            }).catch((e)=>console.log("작 err"+e));
+        })
+        .catch((e)=>console.log("큰 err"+e));
+    alert("전송완료");
+    // window.open("https://github.com/" + username + "/" + username);
+    // await
 }
 
 $(function(){
