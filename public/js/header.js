@@ -152,11 +152,6 @@ function submit(gitToken, gitName){
                         sha: sha,
                     })
                 })
-                    .then( () => {
-                        alert("전송완료")
-                    })
-                    .catch( () => {
-                        alert("잠시 후 다시 시도해 주세요.")})
             }
             put();
     }
