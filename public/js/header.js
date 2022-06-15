@@ -2,8 +2,13 @@ const firebaseInstance = firebase;
 const authService = firebase.auth();
 const user = firebase.auth().currentUser;
 const username = sessionStorage.getItem("name")
-let response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md");
-
+fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md" )
+    .then((response)=>response.json())
+    .then((data)=>{
+        console.log(data)
+        console.log(data.sha)
+        console.log((new Date).getTime())
+    })
 const githubLogin = async () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
     const data = await authService.signInWithPopup(provider);
@@ -43,7 +48,7 @@ function githubLogOut() {
 // 세션이 있다면 로그인 상태 유지
 $(function (){
     if(sessionStorage.length !== 0){
-        document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님"
+        document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님";
 
         $(function(){
             $('#logout').show();
@@ -114,46 +119,42 @@ function submit(gitToken, gitName){
     // console.log(gitName);
 
     function getTitle(){
+        let cacheName = 'CacheStorage';
+        let response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md");
         return response.then(res => res.json());
     }
     async function exec(){
         var apiFuc;
-        try {
-            apiFuc = await getTitle();
-            var con = atob(decodeURIComponent(apiFuc.content));
-            var sha = apiFuc.sha;
-            console.log(sha);
-            console.log();
-            await put(con, sha);
-        }catch(error){
-            console.log(error);
-            alert("새로고침 후 다시 시도해주세요.");
-        }
+        apiFuc = await getTitle();
+        var con = atob(decodeURIComponent(apiFuc.content));
+        var sha = apiFuc.sha;
+        console.log(sha);
+        console.log();
+        await put(con, sha);
     }
 
     exec();
-
     function put(con, sha) {
         let context = api.textContent;
         var content = btoa(con + " " + context);
         console.log(content)
         var commitMessage = "addREADME.md"
-            function put() {
-                fetch("https://api.github.com/repos/Kimclick/Kimclick/contents/README.md", { //경로 -> 파일명
-                    method: "PUT",
-                    headers: {
-                        "Accept": "application/vnd.github.v3+json",
-                        "Authorization": "token " + token,
-                    },
-                    body: JSON.stringify({
-                        message: commitMessage,
-                        owner: username,
-                        content: content, //base 64
-                        sha: sha,
-                    })
-                })
-            }
-            put();
+        fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md", { //경로 -> 파일명
+            method: "PUT",
+            headers: {
+                "Accept": "application/vnd.github.v3+json",
+                "Authorization": "token " + token,
+            },
+            body: JSON.stringify({
+                message: commitMessage,
+                owner: username,
+                content: content, //base 64
+                sha: sha,
+            })
+        })
+
+        console.log('caches'in window)
+        console.log(window.caches)
     }
 
 }
