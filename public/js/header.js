@@ -1,6 +1,8 @@
 const firebaseInstance = firebase;
 const authService = firebase.auth();
 const user = firebase.auth().currentUser;
+const username = sessionStorage.getItem("name")
+let response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md");
 
 const githubLogin = async () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
@@ -10,8 +12,8 @@ const githubLogin = async () => {
     console.log(username)
     const email = data.user.email
     console.log(email)
-    const displayName = data.user.displayName
-    console.log(displayName)
+    // const displayName = data.user.displayName
+    // console.log(displayName)
     document.getElementById('user_name').innerHTML = username+"님"
 
     // 로그인 완료 시 로그아웃 버튼 보이기
@@ -64,7 +66,6 @@ function gitsubmit(toKen){
 
 function pop(id){
     $('#popup').show()
-    // console.log(id)
     return id
 }
 function color(colorCode){
@@ -111,69 +112,58 @@ function submit(gitToken, gitName){
     const token = gitToken
     const username = gitName // 로그인 구현후 변경
     // console.log(gitName);
-    const fileName = "README.md"
-    //get sha, content
+
     function getTitle(){
-        // const response = fetch("https://jsonplaceholder.typicode.com/posts");
-        const response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/" + fileName);
         return response.then(res => res.json());
     }
-
     async function exec(){
         var apiFuc;
         try {
             apiFuc = await getTitle();
-            // console.log(text[0].title);
-            var sha = apiFuc.sha
-            var con = apiFuc.content
+            var con = atob(decodeURIComponent(apiFuc.content));
+            var sha = apiFuc.sha;
             console.log(sha);
-            console.log(con);
-            del(sha)
-            await put(con)
-        }
-        catch(error){
-            // console.log(error);
-            alert("오류가 발생했습니다.");
+            console.log();
+            await put(con, sha);
+        }catch(error){
+            console.log(error);
+            alert("새로고침 후 다시 시도해주세요.");
         }
     }
+
     exec();
 
-    async function del(sha){
-        var commitMessage = "delREADME.md";
-        fetch("https://api.github.com/repos/"+username+"/"+username+"/contents/README.md", { //경로 -> 파일명
-            method: "DELETE",
-            headers: {
-                "Authorization" : "token "+token,
-            },
-            body: JSON.stringify({
-                message:commitMessage,
-                sha:sha // sha 가져와서 붙이기
-            }),
-        });
-    }
-    function put(con){
+    function put(con, sha) {
         let context = api.textContent;
-        var content = con + btoa(unescape(encodeURIComponent("<br/>"+context)));
-        console.log(content + "   "+token)
+        var content = btoa(con + " " + context);
+        console.log(content)
         var commitMessage = "addREADME.md"
-        fetch("https://api.github.com/repos/Kimclick/Kimclick/contents/README.md", { //경로 -> 파일명
-            method: "PUT",
-            headers: {
-                "Accept": "application/vnd.github.v3+json",
-                "Authorization" : "token "+token,
-            },
-            body: JSON.stringify({
-                message : commitMessage,
-                owner : username,
-                content : content , //base 64
-                sha:"" //비워둠
-            }),
-        });
+            function put() {
+                fetch("https://api.github.com/repos/Kimclick/Kimclick/contents/README.md", { //경로 -> 파일명
+                    method: "PUT",
+                    headers: {
+                        "Accept": "application/vnd.github.v3+json",
+                        "Authorization": "token " + token,
+                    },
+                    body: JSON.stringify({
+                        message: commitMessage,
+                        owner: username,
+                        content: content, //base 64
+                        sha: sha,
+                    })
+                })
+                    .then( () => {
+                        alert("전송완료")
+                    })
+                    .catch( () => {
+                        alert("잠시 후 다시 시도해 주세요.")})
+            }
+            put();
     }
+
 }
 
 $(function(){
-
     $('#close').on('click', function(){
         $('#popup').hide()
         document.getElementById('headerText').innerHTML = "";
