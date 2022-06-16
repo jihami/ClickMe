@@ -24,18 +24,20 @@ const githubLogin = async () => {
 }
 
 function githubLogOut() {
-    firebase.auth().signOut().then(() => {
-        // Sign-out successful.
-        document.getElementById("user_name").innerHTML = "Git Hub Login"
-    })
-
-    // 로그아웃 시 버튼 숨기기
-    $(function(){
-        $('#logout').hide();
-    })
+    alert("IT SHOW 테스트용 계정입니다. 로그아웃 불가합니다.")
+    // ItShow를 위해 너네는 잠시 주석되어있으렴
+    // firebase.auth().signOut().then(() => {
+    //     // Sign-out successful.
+    //     document.getElementById("login").innerHTML = "Git Hub Login"
+    // });
+    //
+    // // 로그아웃 시 버튼 숨기기
+    // $(function(){
+    //     $('#logout').hide();
+    // })
 
     // 로그아웃 시 세션 삭제
-    sessionStorage.removeItem("name")
+    // sessionStorage.removeItem("name")
 }
 
     // 세션이 있다면 로그인 상태 유지
