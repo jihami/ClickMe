@@ -12,25 +12,24 @@ const authService = firebase.auth();
 const user = firebase.auth().currentUser;
 
 const githubLogin = async () => {
-
     // var toKen = prompt('토큰을 입력하시오.');
     const provider = new firebaseInstance.auth.GithubAuthProvider();
     const data = await authService.signInWithPopup(provider);
-    const username = data.additionalUserInfo.username
-    console.log(username)
+    const username = data.additionalUserInfo.username;
+    console.log(username);
     // const email = data.user.email
     // console.log(email)
     // const displayName = data.user.displayName
     // console.log(displayName)
-    document.getElementById('login').innerHTML = username+"님"
+    document.getElementById('login').innerHTML = username+"님";
 
     // 로그인 완료 시 로그아웃 버튼 보이기
     $(function(){
         $('#logout').show();
-    })
+    });
 
     // 세션에 name를 사용하여 저장
-    sessionStorage.setItem("name", username)
+    sessionStorage.setItem("name", username);
     // sessionStorage.setItem("toKen", toKen)
     // console.log(sessionStorage.getItem("toKen"))
 }

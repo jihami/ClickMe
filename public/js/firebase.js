@@ -1,12 +1,11 @@
 const firebaseConfig = {
-    //  firebase sdk
-    apiKey: "AIzaSyAScwaKmiKUyqgxaPBk2VUrydYSHUJF3pY",
-    authDomain: "clickme-ca826.firebaseapp.com",
-    projectId: "clickme-ca826",
-    storageBucket: "clickme-ca826.appspot.com",
-    messagingSenderId: "229716770871",
-    appId: "1:229716770871:web:ba982b7fd732da3dd47fb2",
-    measurementId: "G-KT1SPMPS2N"
+    apiKey: "AIzaSyCPUkbA5H-DS-B-4xODdmUYL3UmoThmU2E",
+    authDomain: "clickme-65c5b.firebaseapp.com",
+    projectId: "clickme-65c5b",
+    storageBucket: "clickme-65c5b.appspot.com",
+    messagingSenderId: "310258531774",
+    appId: "1:310258531774:web:b089b93f0e06eb0b628def",
+    measurementId: "G-3EFM7FYLJJ"
 };
 
 firebase.initializeApp(firebaseConfig);
