@@ -155,6 +155,21 @@ $(function(){
         $('#popup').hide()
     });
 });
+
+// 팝업 전송 타이머
+function clickTime(){
+    time = 15
+    const timer = setInterval(function count(){
+        time -= 1
+        document.getElementById('time').innerHTML = time
+
+        if (time <= 0){
+            clearInterval(timer)
+        }
+
+    }, 1000)
+}
+
 function sleep(ms) {
     const wakeUpTime = Date.now() + ms;
     while (Date.now() < wakeUpTime) {}
@@ -165,6 +180,8 @@ async function submit(gitToken, gitName) {
     const token = gitToken;
     const username = gitName;
     console.log("15초 후 전송");
+    clickTime()
+    timer()
     await sleep(15000);
     fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md")
         .then((res) => {
