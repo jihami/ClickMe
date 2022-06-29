@@ -160,7 +160,9 @@ body{
                 list-style:none;
                 cursor:pointer;
             }
-
+            #myPage{
+                display: none;
+            }
             #menu ul li img{
                 width:140px;
                 float:left;

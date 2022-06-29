@@ -25,6 +25,7 @@ const githubLogin = async () => {
 
     // 로그인 완료 시 로그아웃 버튼 보이기
     $(function(){
+        $('#myPage').show();
         $('#logout').show();
     });
 
@@ -66,6 +67,7 @@ $(function (){
 
         $(function(){
             $('#logout').show();
+            $('#myPage').show();
         })
     }
 })

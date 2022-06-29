@@ -19,6 +19,7 @@ const githubLogin = async () => {
     // 로그인 완료 시 로그아웃 버튼 보이기
     $(function(){
         $('#logout').show();
+        $('#myPage').show();
     })
 
     // 세션에 name를 사용하여 저장
@@ -49,6 +50,7 @@ $(function (){
 
         $(function(){
             $('#logout').show();
+            $('#myPage').show();
         })
     }
 })

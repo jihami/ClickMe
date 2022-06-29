@@ -9,6 +9,9 @@ body{
     overflow-x:hidden;
 }
 
+#myPage{
+    display: none;
+}
 #popup{
     width:750px;
     height:500px;
