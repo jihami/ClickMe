@@ -11,6 +11,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const firebaseInstance = firebase;
 const authService = firebase.auth();
+const db = firebase.firestore();
 const user = firebase.auth().currentUser;
 
 const githubLogin = async () => {
@@ -24,15 +25,26 @@ const githubLogin = async () => {
     const displayName = data.user.displayName
     console.log(displayName)
     document.getElementById('user_name').innerHTML = username+"님"
-
-    // 로그인 완료 시 로그아웃 버튼 보이기
-    $(function(){
-        $('#logout').show();
-        $('#myPage').show();
-    })
-
+    $('#logout').show();
+    $('#myPage').show();
     // 세션에 name를 사용하여 저장
     sessionStorage.setItem("name", username)
+    sessionStorage.setItem("email", email)
+    db.collection(email).doc(email).set({"name":username,"email":email}); // 내용을 덮어씀
+    db.collection(email).get().then((data) => {
+        if (data.size < 2) {
+            alert("Github Token을 입력해 주세요.");
+            location.href = "myPage.html"
+        } else {
+            db.collection(email).doc('Token').get().then((result)=> {
+                for(let doc in result.data()){
+                    token=result.data().Token
+                    console.log(token)
+                    sessionStorage.setItem("token", token)
+                }
+            })
+        }
+    })
 }
 
 function githubLogOut() {
@@ -42,20 +54,21 @@ function githubLogOut() {
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
         // 로그아웃 시 버튼 숨기기
-
         document.getElementsByClassName("login").innerHTML = "Git Hub Login";
         $('#logout').hide();
         $('#myPage').hide();
 
         // 로그아웃 시 세션 삭제
         sessionStorage.removeItem("name");
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("token");
         location.reload();
     });
 }
 
 // 세션이 있다면 로그인 상태 유지
 $(function (){
-    if(sessionStorage.length !== 0){
+    if(sessionStorage.length >= 1){
         document.getElementById('user_name').innerHTML = sessionStorage.getItem("name")+"님"
 
         $(function(){

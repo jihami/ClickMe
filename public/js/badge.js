@@ -1,28 +1,4 @@
 const username = sessionStorage.getItem("name")
-let response = fetch("https://api.github.com/repos/" + username + "/" + username + "/contents/README.md");
-
-const githubLogin = async () => {
-    const provider = new firebaseInstance.auth.GithubAuthProvider();
-    const data = await authService.signInWithPopup(provider);
-
-    const username = data.additionalUserInfo.username
-    console.log(username)
-    const email = data.user.email
-    console.log(email)
-    const displayName = data.user.displayName
-    console.log(displayName)
-    document.getElementById('user_name').innerHTML = username+"님"
-
-    // 로그인 완료 시 로그아웃 버튼 보이기
-    $(function(){
-        $('#logout').show();
-        $('#myPage').show();
-    })
-
-    // 세션에 name를 사용하여 저장
-    sessionStorage.setItem("name", username)
-}
-
 const badgeData = {
     'Adobe' : '<img src="https://img.shields.io/badge/Adobe-FF0000?style=flat-square&logo=Adobe&logoColor=white" alt="BADGE"/>',
     'Adobe XD' : '<img src="https://img.shields.io/badge/Adobe XD-FF61F6?style=flat-square&logo=Adobe XD&logoColor=white" alt="BADGE"/>',
@@ -137,7 +113,6 @@ async function submit(gitToken, gitName) {
     // textarea 에 있는 코드 가져오기
     let api = document.getElementById('badgeText');
     const token = gitToken;
-    const username = gitName;
     console.log("15초 후 전송");
     // clickTime()
     // timer()
